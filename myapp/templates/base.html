@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home | Price Comparison</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header/Navbar ======= -->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault"
+       aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="/">Price<span class="color-b">Comparison</span></a>
+
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+          </li>
+
+        {% if not request.user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link " href="/about/">About</a>
+          </li>
+
+
+        {% else %}
+
+        {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link " href="/all-user/">All User</a>
+          </li>
+        {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link " href="/search-product/">Search Product</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="/my-history/">History</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="/change-password/">Change Password</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="/logout-user/">Logout</a>
+          </li>
+
+        {% endif %}
+        </ul>
+      </div>
+
+        {% if not request.user.is_authenticated %}
+
+            <a href="/register/" style="margin-right:20px">
+                <button type="button" class="btn btn-b-n p-2">
+                    Signup
+                </button>
+            </a>
+
+            <a href="/signin/" style="margin-right:20px">
+                <button type="button" class="btn btn-b-n p-2">
+                    Signin
+                </button>
+            </a>
+
+            <a href="/admin-signin/" style="margin-right:20px">
+              <button type="button" class="btn btn-b-n p-2">
+                  Admin Signin
+              </button>
+            </a>
+
+       {% else %}
+
+            <a href="{% if request.user.is_staff %}#{% else %}/update-profile/{% endif %}" style="margin-right:20px">
+                <button type="button" class="btn btn-b-n p-2">
+                    Welcome, {% if request.user.first_name %}{{request.user.first_name}} {{request.user.last_name}}{% else %}{{request.user.username}}{% endif %}
+                </button>
+            </a>
+
+        {% endif %}
+
+    </div>
+  </nav>
+  <!-- End Header/Navbar -->
+
+{% block body %}{% endblock  %}
+
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    {% for i in messages %}
+      alert("{{ i }}");
+    {% endfor %}
+  </script>  
+
+</body>
+
+</html>
